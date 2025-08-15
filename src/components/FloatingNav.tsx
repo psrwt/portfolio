@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react'; // Import useRef
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import type { ReactElement } from 'react';
 
 // --- Icon Components (Declared First) ---
 const HomeIcon = () => (
@@ -29,7 +30,7 @@ type NavItem = {
   id: string;
   name: string;
   href: string;
-  icon: JSX.Element;
+  icon: ReactElement;
   external?: boolean;
   type?: never;
 };
