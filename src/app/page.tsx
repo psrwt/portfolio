@@ -1,5 +1,6 @@
 "use client";
 import Hero from "@/components/Hero";
+import TechnicalExperience from "@/components/TechnicalExperience";
 import { motion } from "framer-motion"
 
 export default function Home() {
@@ -12,6 +13,8 @@ export default function Home() {
         style={{ opacity: 0 }}
       >
         <Hero />
+        
+        <TechnicalExperience />
       </motion.div>
     </main>
   );
