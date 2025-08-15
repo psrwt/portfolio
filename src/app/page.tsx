@@ -1,4 +1,5 @@
 "use client";
+import { FloatingNav } from "@/components/FloatingNav";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
 import TechnicalExperience from "@/components/TechnicalExperience";
@@ -8,19 +9,34 @@ import { motion } from "framer-motion"
 export default function Home() {
   return (
     <main className="min-h-screen bg-white flex justify-center">
+
+      <div className="hidden sm:block">
+        <FloatingNav />
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 50, filter: "blur(5px)" }}   // to control the blur density
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         transition={{ duration: 1, ease: "easeOut" }}
         style={{ opacity: 0 }}
       >
-        <Hero />
-        
-        <TechnicalExperience />
 
-        <TechStack />
+        <section id="home" >
+          <Hero />
+        </section>
 
-        <Projects />
+        <section id="experience">
+          <TechnicalExperience />
+        </section>
+
+        <section id="skills">
+          <TechStack />
+        </section>
+
+        <section id="projects">
+          <Projects />
+        </section>
+
       </motion.div>
     </main>
   );
