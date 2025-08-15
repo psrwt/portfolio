@@ -1,23 +1,22 @@
-'use client'; // Required for using state and interactions
+'use client';
 
 import { useState } from 'react';
 import type { NextPage } from 'next';
 
-// --- Data Structures (No changes) ---
 interface Skill {
-  name: string;
-  logo: string;
+    name: string;
+    logo: string;
 }
 interface SkillSubCategory {
-  title: string;
-  skills: Skill[];
+    title: string;
+    skills: Skill[];
 }
 interface SkillCategory {
-  title: string;
-  subCategories: SkillSubCategory[];
+    title: string;
+    subCategories: SkillSubCategory[];
 }
 
-// --- Data (No changes) ---
+
 const skillsData: SkillCategory[] = [
     {
         title: 'Web Development',
@@ -91,11 +90,8 @@ const skillsData: SkillCategory[] = [
 ];
 
 
-// --- Reusable Skill Item Component (MODIFIED) ---
 const SkillItem: React.FC<{ skill: Skill }> = ({ skill }) => (
-    // MODIFICATION 2: Reduced padding on mobile (p-2) and increased on larger screens (sm:p-4)
     <div className="flex flex-col items-center text-center gap-2 p-2 sm:p-4 transition-transform duration-300 hover:scale-105">
-        {/* MODIFICATION 2: Reduced icon size on mobile (w-12 h-12) and increased on larger screens (sm:w-16 sm:h-16) */}
         <div className="relative w-12 h-12 sm:w-16 sm:h-16">
             <img
                 src={skill.logo}
@@ -108,7 +104,6 @@ const SkillItem: React.FC<{ skill: Skill }> = ({ skill }) => (
     </div>
 );
 
-// --- Main Technical Skills Component (MODIFIED) ---
 const TechnicalSkills: NextPage = () => {
     const [activeCategory, setActiveCategory] = useState(skillsData[0].title);
     const currentCategoryData = skillsData.find(cat => cat.title === activeCategory);
@@ -117,25 +112,24 @@ const TechnicalSkills: NextPage = () => {
         <div className="bg-white max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 font-sans mt-12">
             <h1 className='text-3xl sm:text-4xl text-center text-gray-900 font-bold mb-8 sm:mb-12'>Tech Stack.</h1>
 
-            {/* Horizontal Category Tabs */}
+
             <div className="flex justify-center flex-wrap gap-2 sm:gap-4 mb-12">
                 {skillsData.map((category) => (
                     <button
                         key={category.title}
                         onClick={() => setActiveCategory(category.title)}
-                        // MODIFICATION 1: Removed the `focus:ring` classes to eliminate the blue outline on click.
-                        className={`px-4 py-2 text-sm sm:text-base font-semibold rounded-full transition-colors duration-300 focus:outline-none ${
-                            activeCategory === category.title
+
+                        className={`px-4 py-2 text-sm sm:text-base font-semibold rounded-full transition-colors duration-300 focus:outline-none ${activeCategory === category.title
                                 ? 'bg-gray-800 text-white shadow-md'
                                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                        }`}
+                            }`}
                     >
                         {category.title}
                     </button>
                 ))}
             </div>
 
-            {/* Display Skills for the Active Category */}
+
             {currentCategoryData && (
                 <div key={activeCategory} className="animate-fade-in">
                     {currentCategoryData.subCategories.map((subCategory, subIndex) => (
@@ -144,7 +138,7 @@ const TechnicalSkills: NextPage = () => {
                                 {subCategory.title}
                             </h3>
 
-                            {/* MODIFICATION 2: Reduced gap between icons on mobile */}
+
                             <div className="mt-6 flex flex-wrap justify-center items-center gap-x-2 gap-y-1 sm:gap-x-4 sm:gap-y-2">
                                 {subCategory.skills.map((skill, skillIndex) => (
                                     <SkillItem key={skillIndex} skill={skill} />

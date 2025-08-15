@@ -84,9 +84,8 @@ const ExperienceItem: FC<ExperienceItemProps> = ({ experience, isLast }) => {
 
           {experience.description && (
             <div
-              className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                isOpen ? 'max-h-[500px] opacity-100 mt-3 pt-3 border-t' : 'max-h-0 opacity-0'
-              }`}
+              className={`transition-all duration-500 ease-in-out overflow-hidden ${isOpen ? 'max-h-[500px] opacity-100 mt-3 pt-3 border-t' : 'max-h-0 opacity-0'
+                }`}
             >
               <ul className="list-disc pl-4 text-gray-500 space-y-1 sm:space-y-2 text-xs sm:text-sm">
                 {experience.description.map((desc, i) => (
@@ -107,10 +106,10 @@ const TechnicalExperience: FC = () => {
       <h2 className="text-2xl sm:text-3xl text-gray-900 font-bold mb-6 sm:mb-8">Technical Experience</h2>
       <div>
         {experiencesData.map((exp, index) => (
-          <ExperienceItem 
-            key={index} 
-            experience={exp} 
-            isLast={index === experiencesData.length - 1} 
+          <ExperienceItem
+            key={index}
+            experience={exp}
+            isLast={index === experiencesData.length - 1}
           />
         ))}
       </div>

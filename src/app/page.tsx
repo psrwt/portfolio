@@ -1,5 +1,6 @@
 "use client";
 import Hero from "@/components/Hero";
+import Projects from "@/components/Projects";
 import TechnicalExperience from "@/components/TechnicalExperience";
 import TechStack from "@/components/TechStack";
 import { motion } from "framer-motion"
@@ -18,6 +19,8 @@ export default function Home() {
         <TechnicalExperience />
 
         <TechStack />
+
+        <Projects />
       </motion.div>
     </main>
   );
