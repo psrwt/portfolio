@@ -65,7 +65,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => (
             <h3 className="text-lg font-bold text-slate-800">{project.title}</h3>
             <p className="mt-1 text-sm text-slate-500">{project.date}</p>
 
-            <p className="mt-4 text-sm text-slate-600 leading-relaxed">{project.description}</p>
+            <p className="mt-4 text-sm text-slate-600 leading-relaxed font-sans">{project.description}</p>
         </div>
         <div className="mt-6">
             <div className="flex flex-wrap gap-2 mb-6">
@@ -111,7 +111,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => (
 
 const Projects: NextPage = () => {
     return (
-        <div className="bg-white max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 font-sans">
+        <div className="bg-white max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
             <div className="text-center">
                 <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight">
                     Check out my projects.

@@ -109,7 +109,7 @@ const TechnicalSkills: NextPage = () => {
     const currentCategoryData = skillsData.find(cat => cat.title === activeCategory);
 
     return (
-        <div className="bg-white max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 font-sans mt-12">
+        <div className="bg-white max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 mt-12">
             <h1 className='text-3xl sm:text-4xl text-center text-gray-900 font-bold mb-8 sm:mb-12'>Tech Stack.</h1>
 
 

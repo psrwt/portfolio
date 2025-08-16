@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Hero: NextPage = () => {
     return (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 bg-white rounded-lg font-sans">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 bg-white rounded-lg">
             <div className="flex flex-col md:flex-row items-start gap-6 sm:gap-8">
 
                 <div className="w-32 h-32 sm:w-40 sm:h-40 flex-shrink-0 rounded-lg overflow-hidden shadow-lg mx-auto md:mx-0">

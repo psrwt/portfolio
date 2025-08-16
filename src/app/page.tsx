@@ -1,5 +1,4 @@
 "use client";
-// Import the necessary React hooks
 import { useState, useEffect, useRef } from "react";
 import { FloatingNav } from "@/components/FloatingNav";
 import Hero from "@/components/Hero";
@@ -9,10 +8,8 @@ import TechStack from "@/components/TechStack";
 import { motion } from "framer-motion";
 
 export default function Home() {
-  // State to track the currently active section
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState("home");
 
-  // Create refs to attach to each section element
   const sectionRefs = {
     home: useRef<HTMLElement>(null),
     experience: useRef<HTMLElement>(null),
@@ -20,65 +17,118 @@ export default function Home() {
     projects: useRef<HTMLElement>(null),
   };
 
-  // This effect sets up the Intersection Observer to watch the sections
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+            const id = entry.target.id;
+            setActiveSection(id);
           }
         });
       },
-      // --- THE FIX IS HERE ---
       {
-        // OLD: threshold: 0.5
-        // A lower threshold makes the update trigger as soon as a section
-        // comes into view, fixing the lag.
-        threshold: 0.2,
+        root: null,
+        rootMargin: "-50% 0px -50% 0px",
+        threshold: 0,
       }
     );
 
     Object.values(sectionRefs).forEach((ref) => {
-      if (ref.current) {
-        observer.observe(ref.current);
-      }
+      if (ref.current) observer.observe(ref.current);
     });
+
+    const initial = Object.entries(sectionRefs).find(
+      ([, ref]) =>
+        ref.current &&
+        ref.current.getBoundingClientRect().top <= window.innerHeight / 2
+    );
+    if (initial) setActiveSection(initial[0]);
 
     return () => {
       Object.values(sectionRefs).forEach((ref) => {
-        if (ref.current) {
-          observer.unobserve(ref.current);
-        }
+        if (ref.current) observer.unobserve(ref.current);
       });
+      observer.disconnect();
     };
-  }, []); // Empty array ensures this runs only once
+  }, []);
+
+  const handleNavSelect = (id: string) => {
+    setActiveSection(id);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
+  // Container: stagger children
+  const containerVariants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  // Section: upward + fade + blur
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 40, filter: "blur(8px)" },
+    show: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.8,
+        ease: "easeOut" as const, // TS-safe easing
+      },
+    },
+  };
 
   return (
     <main className="min-h-screen bg-white flex justify-center">
-      <div className="hidden sm:block">
-        {/* Pass the activeSection state down as the activeId prop */}
-        <FloatingNav activeId={activeSection} />
-      </div>
+      <FloatingNav activeId={activeSection} onSelect={handleNavSelect} />
 
+      {/* Page-wide fade-in */}
       <motion.div
-        initial={{ opacity: 0, y: 50, filter: "blur(5px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        transition={{ duration: 1, ease: "easeOut" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2 }}
       >
-        {/* Attach the refs to the corresponding sections */}
-        <section id="home" ref={sectionRefs.home}>
-          <Hero />
-        </section>
-        <section id="experience" ref={sectionRefs.experience}>
-          <TechnicalExperience />
-        </section>
-        <section id="skills" ref={sectionRefs.skills}>
-          <TechStack />
-        </section>
-        <section id="projects" ref={sectionRefs.projects}>
-          <Projects />
-        </section>
+        {/* Section stack animation */}
+        <motion.div variants={containerVariants} initial="hidden" animate="show">
+          <motion.section
+            id="home"
+            ref={sectionRefs.home}
+            variants={sectionVariants}
+          >
+            <Hero />
+          </motion.section>
+
+          <motion.section
+            id="experience"
+            ref={sectionRefs.experience}
+            variants={sectionVariants}
+          >
+            <TechnicalExperience />
+          </motion.section>
+
+          <motion.section
+            id="skills"
+            ref={sectionRefs.skills}
+            variants={sectionVariants}
+          >
+            <TechStack />
+          </motion.section>
+
+          <motion.section
+            id="projects"
+            ref={sectionRefs.projects}
+            variants={sectionVariants}
+          >
+            <Projects />
+          </motion.section>
+        </motion.div>
       </motion.div>
     </main>
   );

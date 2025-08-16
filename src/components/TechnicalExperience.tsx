@@ -102,7 +102,7 @@ const ExperienceItem: FC<ExperienceItemProps> = ({ experience, isLast }) => {
 
 const TechnicalExperience: FC = () => {
   return (
-    <div className="bg-white max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-12 font-sans mt-8 sm:mt-12">
+    <div className="bg-white max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 mt-8 sm:mt-0">
       <h2 className="text-2xl sm:text-3xl text-gray-900 font-bold mb-6 sm:mb-8">Technical Experience</h2>
       <div>
         {experiencesData.map((exp, index) => (
